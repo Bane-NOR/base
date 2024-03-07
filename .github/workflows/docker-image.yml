@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Container Build
 
 on:
   push:
@@ -6,16 +6,23 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build and publish a Docker image for ${{ github.repository }}
-      uses: macbre/push-to-ghcr@master
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Registry Login
+      uses: docker/login-action@v3
       with:
-        image_name: ${{ github.repository }}  # it will be lowercased internally
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and Push
+      run: docker buildx build -t "$(REGISTRY)/$(IMAGE_NAME):latest" --push  -f Dockerfile .
