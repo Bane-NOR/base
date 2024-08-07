@@ -10,16 +10,13 @@ on:
     - cron: '0 1 * * *'
     
 permissions: write-all
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v3
