@@ -16,7 +16,8 @@ env:
 
 jobs:
   build:
-    runs-on: [self-hosted, Enterprise, Linux, X64]
+    runs-on:
+      group: Team Bullet runners
     steps:
     - name: Checkout
       uses: actions/checkout@v3
