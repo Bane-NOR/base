@@ -33,4 +33,4 @@ jobs:
       run: echo "IMAGE_NAME=$(echo ${{ env.IMAGE_NAME }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
     - name: Build and Push
-      run: docker buildx build -t "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" --push -f Dockerfile .
+      run: docker buildx build --platform linux/amd64 -t "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" --push -f Dockerfile .
