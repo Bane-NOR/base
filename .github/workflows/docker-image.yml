@@ -3,7 +3,7 @@ name: Container Build
 on:
   workflow_dispatch:
   push:
-    branches: ["fix/alpine-version"]
+    branches: ["fix/alpine-versions"]
   pull_request:
     branches: ["main"]
   schedule:
